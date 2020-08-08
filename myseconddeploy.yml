@@ -1,0 +1,22 @@
+#This playbook will show how to deploy pod to specific nodes using labels 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx-deploy
+  labels:
+    run: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+         - image: nginx
+           name: nginx-conatiner
+      nodeSelector:
+        kubernetes.io/hostname: "ip-172-31-47-39.ap-south-1.compute.internal"
